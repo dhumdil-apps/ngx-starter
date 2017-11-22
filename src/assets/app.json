@@ -1,0 +1,18 @@
+{
+  "data":
+  {
+    "brand":
+    {
+      "title": "Ng5 Starter",
+      "icon": "assets/img/angular.svg"
+    },
+    "languages":
+    [
+      {
+        "id": "en",
+        "icon": ""
+      }
+    ],
+    "links": []
+  }
+}
