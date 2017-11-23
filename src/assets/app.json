@@ -3,16 +3,94 @@
   {
     "brand":
     {
-      "title": "Ng5 Starter",
+      "title-i18n":
+      {
+        "sk": "„Suspendisse ornare eu sem non auctor, nam vitae libero ut tortor sagittis auctor“",
+        "ro": "„Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit“"
+      },
       "icon": "assets/img/angular.svg"
     },
     "languages":
     [
       {
-        "id": "en",
-        "icon": ""
+        "id": "sk",
+        "icon": "assets/img/sk.svg"
+      },
+      {
+        "id": "ro",
+        "icon": "assets/img/ro.svg"
       }
     ],
-    "links": []
+    "links":
+    [
+      {
+        "link":
+        {
+          "title-i18n":
+          {
+            "sk": "News (sk)",
+            "ro": "News (ro)"
+          },
+          "type": "news",
+          "url-i18n":
+          {
+            "sk": "new-url-sk",
+            "ro": "about-url-ro"
+          },
+          "icon": ""
+        },
+        "show": true
+      },
+      {
+        "link":
+        {
+          "title-i18n":
+          {
+            "sk": "Video Album (sk)",
+            "ro": "Video Album (ro)"
+          },
+          "type": "video-album",
+          "url-i18n":
+          {
+            "sk": "video-album-url-sk",
+            "ro": "video-album-url-ro"
+          },
+          "icon": ""
+        },
+        "show": true
+      },
+      {
+        "link":
+        {
+          "title-i18n":
+          {
+            "sk": "Photo Album (sk)",
+            "ro": "Photo Album (ro)"
+          },
+          "type": "photo-album",
+          "url-i18n":
+          {
+            "sk": "photo-album-url-sk",
+            "ro": "photo-album-url-ro"
+          },
+          "icon": ""
+        },
+        "show": true
+      },
+      {
+        "link":
+        {
+          "title-i18n":
+          {
+            "sk": "Contact (sk)",
+            "ro": "Contact (ro)"
+          },
+          "type": "contact",
+          "url": "",
+          "icon": ""
+        },
+        "show": true
+      }
+    ]
   }
 }
