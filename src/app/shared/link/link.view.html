@@ -1,0 +1,11 @@
+<a class="link" (click)="selectedEv()" routerLink="{{ url }}" tabindex="0" *ngIf="loaded">
+
+  <div class="link__icon" *ngIf="isSet(icon)">
+    <img class="link__icon_img" src="{{ icon }}" tag="..."/>
+  </div>
+
+  <div class="link__title" *ngIf="isSet(title)">
+    <span class="link__title_txt">{{ title }}</span>
+  </div>
+
+</a>
