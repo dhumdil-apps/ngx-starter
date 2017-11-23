@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 const config =
 {
-  'about': '01/'
+  // 'about': '01/'
 };
 
 @Injectable()
@@ -12,7 +12,7 @@ export class UrlService
   {
     switch (type)
     {
-      case 'about': return (config.about + id);
+      // case 'about': return (config.about + id);
       default: return ('');
     }
   }
