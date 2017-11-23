@@ -62,7 +62,7 @@ export class LangService
         {
           for (let j = 0; j < m; j++)
           {
-            if (links[i]['id-i18n'][languages[j]] === url)
+            if (links[i]['url-i18n'][languages[j]] === url)
             {
               return (languages[j]);
             }
