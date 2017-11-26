@@ -5,6 +5,7 @@ media
   tablet -> 601-1024
   dektop -> > 1024
 
+TODO: remap z-indexes...
 z-index
   page -> 500
   popup -> 400
@@ -52,7 +53,7 @@ body {
 }
 #logo.active {
   top: 5px;
-  left: 30px;
+  left: 80px;
 }
 #logo.active > svg {
   height: 40px;
