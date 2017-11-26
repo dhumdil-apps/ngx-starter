@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 
-// HttpModule is depracated, but 'HttpClientModule' is 'buggy'...
-// so replace this with 'HttpClientModule' once it's fixed
-// https://github.com/angular/angular/issues/18680
+// 'HttpModule' is depracated, but 'HttpClientModule' is 'buggy': https://github.com/angular/angular/issues/18680
 import { HttpModule } from '@angular/http';
 
 import { HttpGetService } from './services/http-get.service';
