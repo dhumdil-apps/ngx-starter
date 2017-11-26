@@ -4,18 +4,16 @@
     <div *ngIf="loaded">
 
       <app-link
-        [url]     = "'/'"
-        [type]    = "'link'"
-        [title]   = "i18n(brand, 'title')"
-        (onClick) = "selectLink('brand')"
+        [link]     = "navigation.brand"
+        [language] = "language.default"
+        (onClick)  = "selectLink(navigation.brand)"
       ></app-link>
 
       <app-link
-        *ngFor    = "let link of navigation.links"
-        [url]     = "parseUrl(link.module, i18n(link, 'url'))"
-        [type]    = "getType(link.module)"
-        [title]   = "i18n(link, 'title')"
-        (onClick) = "selectLink(getType(link.module))"
+        *ngFor     = "let link of navigation.links"
+        [link]     = "link"
+        [language] = "language.default"
+        (onClick)  = "selectLink(link)"
       ></app-link>
 
     </div>
@@ -23,11 +21,16 @@
 
   <div class="header">
 
+    <app-language
+      [language]         = "language"
+      (onSelectLanguage) = "selectLanguageEv($event)"
+    ></app-language>
+
     <div class="flex"></div>
 
     <!-- App Logo -->
-    <a class="brand" (click)="selectLink('brand')" routerLink="/" tabindex="0">
-      <span class="brand_title" *ngIf="loaded">{{ i18n(brand, 'title') }}</span>
+    <a class="brand" *ngIf="loaded" (click)="selectLink(navigation.brand)" routerLink="{{ navigation.brand.url }}" tabindex="0">
+      <span class="brand_title">{{ i18n(navigation.brand, 'title') }}</span>
     </a>
 
     <div class="flex"></div>

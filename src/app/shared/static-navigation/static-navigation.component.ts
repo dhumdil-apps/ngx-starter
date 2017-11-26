@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
 
 import { I18nService } from '@app/core/services/i18n.service';
-import { UrlMappingService } from '@app/core/url-mapping.service';
 
 @Component({
   selector: 'app-static-navigation',
@@ -13,25 +12,20 @@ export class StaticNavigationComponent implements AfterViewInit
 {
   public loaded: boolean;
   public active: boolean;
-  public brand: any;
 
   @Input() language;
   @Input() navigation;
 
   @Output() onScrollTo = new EventEmitter();
+  @Output() onSelectLanguage = new EventEmitter();
 
-  constructor(
-    private i18nService: I18nService,
-    private urlMappingService: UrlMappingService
-  )
+  constructor(private i18nService: I18nService)
   {
     this.loaded = false;
   }
 
   ngAfterViewInit()
   {
-    console.log(this.navigation.brand);
-    this.brand = this.navigation.brand;
     this.loaded = true;
   }
 
@@ -51,28 +45,19 @@ export class StaticNavigationComponent implements AfterViewInit
     this.active = false;
   }
 
-  public parseUrl(type: string, id: string): string
+  public i18n(obj: any, key: string): any
   {
-    return (this.urlMappingService.getUrl(type, id));
+    return this.i18nService.tryI18n(obj, key, this.language.default);
   }
 
-  // TODO
+  // TODO: this.onScrollTo.emit('position');
   public selectLink(link: any): void
   {
     this.closeNavigation();
-    // handle scroll:
-    // this.onScrollTo.emit('position');
   }
 
-  // TODO
-  public getType(module: string): string
+  public selectLanguageEv(language: string): void
   {
-    // types: link, redirect, scroll
-    return 'link';
-  }
-
-  public i18n(obj: any, key: string): any
-  {
-    return this.i18nService.tryI18n(obj, key, this.language);
+    this.onSelectLanguage.emit(language);
   }
 }

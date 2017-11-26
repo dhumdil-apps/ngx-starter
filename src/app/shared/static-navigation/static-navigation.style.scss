@@ -8,7 +8,6 @@
   &_active {
 
     .header {
-
       .brand_title {
         opacity: 0;
       }
@@ -74,9 +73,9 @@
 
   .brand {
     display: flex;
-    max-width: calc(100% - 200px);
+    max-width: calc(100% - 250px);
     position: relative;
-    padding-left: 100px;
+    // padding-left: 100px;
     cursor: pointer;
 
     &:hover {
