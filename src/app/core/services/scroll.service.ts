@@ -3,9 +3,9 @@ import { Injectable, NgZone } from '@angular/core';
 @Injectable()
 export class ScrollService
 {
-  public element: any;
+  private element: any;
 
-  constructor(public ngZone: NgZone)
+  constructor(private ngZone: NgZone)
   {}
 
   private scrollUp(position: number, now: number): void

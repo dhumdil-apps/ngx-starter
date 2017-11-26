@@ -8,10 +8,8 @@ export class HttpGetService
   constructor(private http: Http)
   {}
 
-  public get(url: string): any
+  public getJson(url: string): any
   {
-    return this.http
-      .get(url)
-      .pipe(map(res => res.json()));
+    return this.http.get(url).pipe(map(res => res.json()));
   }
 }
