@@ -24,7 +24,10 @@
         {
           "sk": "„Suspendisse ornare eu sem non auctor, nam vitae libero ut tortor sagittis auctor“",
           "ro": "„Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit“"
-        }
+        },
+        "module": "brand",
+        "type": "content",
+        "url": "/"
       },
       "links":
       [
@@ -37,12 +40,12 @@
               "ro": "News (ro) [www.domain-name.com/news]"
             },
             "module": "news",
+            "type": "content",
             "url-i18n":
             {
               "sk": "news-url-sk",
               "ro": "news-url-ro"
-            },
-            "icon": ""
+            }
           },
           "show": true
         },
@@ -54,13 +57,13 @@
               "sk": "Video Album (sk) [www.domain-name.com/video-album]",
               "ro": "Video Album (ro) [www.domain-name.com/video-album]"
             },
-            "module": "video-album",
+            "module": "video-lbum",
+            "type": "content",
             "url-i18n":
             {
               "sk": "video-album-url-sk",
               "ro": "video-album-url-ro"
-            },
-            "icon": ""
+            }
           },
           "show": true
         },
@@ -72,13 +75,13 @@
               "sk": "Photo Album (sk) [www.domain-name.com/photo-album]",
               "ro": "Photo Album (ro) [www.domain-name.com/photo-album]"
             },
-            "module": "photo-album",
+            "module": "photo-lbum",
+            "type": "content",
             "url-i18n":
             {
               "sk": "photo-album-url-sk",
               "ro": "photo-album-url-ro"
-            },
-            "icon": ""
+            }
           },
           "show": true
         },
@@ -90,9 +93,13 @@
               "sk": "Contact (sk) [www.domain-name.com#contact]",
               "ro": "Contact (ro) [www.domain-name.com#contact]"
             },
-            "module": "",
-            "url": "#bottom",
-            "icon": ""
+            "module": "contat",
+            "type": "scroll",
+            "url-i18n":
+            {
+              "sk": "#contact-sk",
+              "ro": "#contact-ro"
+            }
           },
           "show": true
         }
