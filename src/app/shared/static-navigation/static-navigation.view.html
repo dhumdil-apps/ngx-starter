@@ -1,0 +1,42 @@
+<div class="navigation {{ active ? 'navigation_active' : '' }}">
+
+  <div class="links">
+    <div *ngIf="loaded">
+
+      <app-link
+        [url]     = "'/'"
+        [type]    = "'link'"
+        [title]   = "i18n(brand, 'title')"
+        (onClick) = "selectLink('brand')"
+      ></app-link>
+
+      <app-link
+        *ngFor    = "let link of navigation.links"
+        [url]     = "parseUrl(link.module, i18n(link, 'url'))"
+        [type]    = "getType(link.module)"
+        [title]   = "i18n(link, 'title')"
+        (onClick) = "selectLink(getType(link.module))"
+      ></app-link>
+
+    </div>
+  </div>
+
+  <div class="header">
+
+    <div class="flex"></div>
+
+    <!-- App Logo -->
+    <a class="brand" (click)="selectLink('brand')" routerLink="/" tabindex="0">
+      <span class="brand_title" *ngIf="loaded">{{ i18n(brand, 'title') }}</span>
+    </a>
+
+    <div class="flex"></div>
+
+    <app-hamburger
+      [active]  = "active"
+      (onClick) = "toggleNavigation()"
+    ></app-hamburger>
+
+  </div>
+
+</div>
