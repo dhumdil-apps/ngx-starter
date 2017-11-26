@@ -1,46 +1,14 @@
-<div class="navigation {{ app.navigation.isActive ? 'navigation_active' : '' }}">
+<div class="app" [style.height.px]="app.height" (scroll)="handleScroll()" #scrollEl>
 
-  <div class="links" *ngIf="app.links.length > 0">
-    <div *ngIf="app.loaded">
+  <app-static-navigation
+    *ngIf        = "app.loaded"
+    [language]   = "app.language.default"
+    [navigation] = "app.navigation"
+    (onScrollTo) = "scrollTo($event)"
+  ></app-static-navigation>
 
-      <a class="header__link header__link_brand" routerLink="/" (click)="selectLink()">
-        <span class="header__link_title font-italic">{{ i18n(app.brand, 'title') }}</span>
-      </a>
-
-      <a class="header__link" *ngFor="let link of app.links" routerLink="{{ parseUrl(link.type, i18n(link, 'id')) }}" (click)="selectLink()">
-        <span class="header__link_title font-italic">{{ i18n(link, 'title') }}</span>
-      </a>
-
-    </div>
+  <div *ngIf="app.loaded">
+    <router-outlet></router-outlet>
   </div>
 
-  <div class="header">
-
-    <!-- App Logo -->
-    <div class="header__brand_img" routerLink="/" (click)="selectLink()">
-      <img *ngIf="app.loaded" src="{{ app.brand.icon }}" alt="..."/>
-    </div>
-
-    <!-- App Title -->
-    <div class="header__brand">
-      <a *ngIf="app.loaded" class="header__link" routerLink="/" (click)="selectLink()">
-        <span class="header__link_title font-italic">{{ i18n(app.brand, 'title') }}</span>
-      </a>
-    </div>
-
-    <!-- Menu -->
-    <div class="header__menu" (click)="toggleNavigation()" *ngIf="app.links.length > 0">
-      <div class="header__menu_btn">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-
-  </div>
-
-</div>
-
-<div #scrollEl class="content" *ngIf="app.loaded">
-  <router-outlet></router-outlet>
 </div>

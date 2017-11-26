@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from '@app/core/core.module';
 import { SharedModule } from '@app/shared/shared.module';
 
+import { AppService } from './app.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -20,7 +21,10 @@ import { AppComponent } from './app.component';
   bootstrap: [
     AppComponent
   ],
-  providers: []
+  providers: [
+    AppService
+  ]
 })
 
-export class AppModule {}
+export class AppModule
+{}

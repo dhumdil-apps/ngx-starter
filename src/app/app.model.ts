@@ -1,13 +1,11 @@
 export class App
 {
-  // local
   public loaded: boolean;
-  public lang: string;
+  public width: number;
+  public height: number;
+
+  public language: any;
   public navigation: any;
-  // json
-  public brand: any;
-  public languages: any;
-  public links: any;
 
   constructor()
   {
@@ -17,35 +15,58 @@ export class App
   private init(): void
   {
     this.loaded = false;
-    this.lang = '';
+    this.width = 0;
+    this.height = 0;
+
+    this.language = {
+      'default': '',
+      'available': []
+    };
     this.navigation =
     {
-      'isActive': false
+      'brand': {},
+      'links': []
     };
-
-    this.brand = {};
-    this.languages = [];
-    this.links = [];
   }
 
   public initialize(json: any): void
   {
     try
     {
-      this.brand = json.data.brand;
-      this.languages = json.data.languages;
-
-      json.data.links.forEach((item) =>
+      if (json.data.language.default === 'undefined' || json.data.language.available === 'undefined')
       {
-        if (item.show)
+        throw "Undefined";
+      }
+      else if (json.data.navigation.brand === 'undefined')
+      {
+        throw "Undefined";
+      }
+      else if (json.data.navigation.links === 'undefined')
+      {
+        throw "Undefined";
+      }
+      else
+      {
+        this.language =
         {
-          this.links.push(item.link);
-        }
-      });
+          'default': json.data.language.default,
+          'available': json.data.language.available
+        };
+
+        this.navigation.brand = json.data.navigation.brand;
+
+        json.data.navigation.links.forEach((item) =>
+        {
+          if (item.show)
+          {
+            this.navigation.links.push(item.link);
+          }
+        });
+      }
     }
     catch (e)
     {
-      console.log('error:', e);
+      console.log("Ooops, something went wrong...");
       this.init();
     }
   }
