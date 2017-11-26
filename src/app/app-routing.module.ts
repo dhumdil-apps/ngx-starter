@@ -18,9 +18,9 @@ const routes: Routes =
 @NgModule({
   imports: [
     // When combining with backend router, use this option:
-    // RouterModule.forRoot(routes, { useHash: true })
+    RouterModule.forRoot(routes, { useHash: true })
     // otherwise this one:
-    RouterModule.forRoot(routes)
+    // RouterModule.forRoot(routes)
   ],
   exports: [
     RouterModule
