@@ -2,6 +2,11 @@
   width: 100px;
   cursor: pointer;
 
+  &:hover {
+    .hamburger__lines_line {
+      background: #D8E3ED;
+    }
+  }
   &__lines {
     position: relative;
     margin: 5px 30px;
@@ -22,13 +27,13 @@
       left: 0;
       will-change: transform;
       transform: rotate(0deg) translateZ(0);
-      transition: 150ms ease-in-out;
+      transition: all 150ms ease-in-out;
     }
     .line_1 {
       top: 8px;
     }
     .line_2 {
-      top: 8px;
+      top: 18px;
     }
     .line_3 {
       top: 28px;
