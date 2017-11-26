@@ -1,10 +1,11 @@
 <div class="app" [style.height.px]="app.height" (scroll)="handleScroll()" #scrollEl>
 
   <app-static-navigation
-    *ngIf        = "app.loaded"
-    [language]   = "app.language.default"
-    [navigation] = "app.navigation"
-    (onScrollTo) = "scrollTo($event)"
+    *ngIf              = "app.loaded"
+    [language]         = "app.language"
+    [navigation]       = "app.navigation"
+    (onScrollTo)       = "scrollTo($event)"
+    (onSelectLanguage) = "selectLanguage($event)"
   ></app-static-navigation>
 
   <div *ngIf="app.loaded">
