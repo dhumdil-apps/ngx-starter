@@ -1,11 +1,30 @@
-<a class="link" (click)="selectedEv()" routerLink="{{ url }}" tabindex="0" *ngIf="loaded">
+<div *ngIf="link.loaded">
 
-  <div class="link__icon" *ngIf="isSet(icon)">
-    <img class="link__icon_img" src="{{ icon }}" tag="..."/>
+  <!-- Link -->
+  <a class="link" (click)="clickEv()" routerLink="{{ link.url }}" tabindex="0" *ngIf="link.type === 'link'">
+
+    <div class="link__title" *ngIf="isSet(link.title)">
+      <span class="link__title_txt">{{ link.title }}</span>
+    </div>
+
+  </a>
+
+  <!-- Redirect -->
+  <a class="link" (click)="clickEv()" href="{{ link.url }}" tabindex="0" target="_blank" *ngIf="link.type === 'redirect'">
+
+    <div class="link__title" *ngIf="isSet(link.title)">
+      <span class="link__title_txt">{{ link.title }}</span>
+    </div>
+
+  </a>
+
+  <!-- Scroll -->
+  <div class="link" (click)="clickEv()" *ngIf="link.type === 'scroll'">
+
+    <div class="link__title" *ngIf="isSet(link.title)">
+      <span class="link__title_txt">{{ link.title }}</span>
+    </div>
+
   </div>
 
-  <div class="link__title" *ngIf="isSet(title)">
-    <span class="link__title_txt">{{ title }}</span>
-  </div>
-
-</a>
+</div>

@@ -1,4 +1,6 @@
-import { Component, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, ChangeDetectorRef, Input, Output, EventEmitter, AfterViewInit } from '@angular/core';
+
+import { Link } from './link.model';
 
 @Component({
   selector: 'app-link',
@@ -8,22 +10,24 @@ import { Component, Input, Output, EventEmitter, AfterViewInit } from '@angular/
 
 export class LinkComponent implements AfterViewInit
 {
-  public loaded: boolean;
+  public link: Link;
 
-  @Input() title;
-  @Input() icon;
   @Input() url;
+  @Input() type;
+  @Input() title;
 
-  @Output() selected = new EventEmitter();
+  @Output() onClick = new EventEmitter();
 
-  constructor()
+  constructor(private cdr: ChangeDetectorRef)
   {
-    this.loaded = false;
+    this.link = new Link();
   }
 
   ngAfterViewInit()
   {
-    this.loaded = true;
+    console.log(this.title);
+    this.link.initialize(this.url, this.type, this.title);
+    this.cdr.detectChanges();
   }
 
   public isSet(str: string): boolean
@@ -31,8 +35,8 @@ export class LinkComponent implements AfterViewInit
     return (str !== '');
   }
 
-  public selectedEv(): void
+  public clickEv(): void
   {
-    this.selected.emit();
+    this.onClick.emit();
   }
 }
