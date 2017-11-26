@@ -96,6 +96,7 @@ export class AppComponent implements OnInit, AfterViewInit
     this.app.language.default = language;
     this.appService.updateLanguage(language);
     this.appCommunicationService.updateApp(this.app);
+    this.cdr.detectChanges();
   }
 
   public handleScroll(): void
