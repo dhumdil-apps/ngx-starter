@@ -1,96 +1,102 @@
 {
   "data":
   {
-    "brand":
+    "language":
     {
-      "title-i18n":
-      {
-        "sk": "„Suspendisse ornare eu sem non auctor, nam vitae libero ut tortor sagittis auctor“",
-        "ro": "„Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit“"
-      },
-      "icon": "assets/img/angular.svg"
+      "default": "sk",
+      "available":
+      [
+        {
+          "id": "sk",
+          "icon": "assets/img/sk.svg"
+        },
+        {
+          "id": "ro",
+          "icon": "assets/img/ro.svg"
+        }
+      ]
     },
-    "languages":
-    [
+    "navigation":
+    {
+      "brand":
       {
-        "id": "sk",
-        "icon": "assets/img/sk.svg"
-      },
-      {
-        "id": "ro",
-        "icon": "assets/img/ro.svg"
-      }
-    ],
-    "links":
-    [
-      {
-        "link":
+        "title-i18n":
         {
-          "title-i18n":
-          {
-            "sk": "News (sk)",
-            "ro": "News (ro)"
-          },
-          "type": "news",
-          "url-i18n":
-          {
-            "sk": "new-url-sk",
-            "ro": "about-url-ro"
-          },
-          "icon": ""
-        },
-        "show": true
+          "sk": "„Suspendisse ornare eu sem non auctor, nam vitae libero ut tortor sagittis auctor“",
+          "ro": "„Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit“"
+        }
       },
-      {
-        "link":
+      "links":
+      [
         {
-          "title-i18n":
+          "link":
           {
-            "sk": "Video Album (sk)",
-            "ro": "Video Album (ro)"
+            "title-i18n":
+            {
+              "sk": "News (sk) [www.domain-name.com/news]",
+              "ro": "News (ro) [www.domain-name.com/news]"
+            },
+            "module": "news",
+            "url-i18n":
+            {
+              "sk": "news-url-sk",
+              "ro": "news-url-ro"
+            },
+            "icon": ""
           },
-          "type": "video-album",
-          "url-i18n":
-          {
-            "sk": "video-album-url-sk",
-            "ro": "video-album-url-ro"
-          },
-          "icon": ""
+          "show": true
         },
-        "show": true
-      },
-      {
-        "link":
         {
-          "title-i18n":
+          "link":
           {
-            "sk": "Photo Album (sk)",
-            "ro": "Photo Album (ro)"
+            "title-i18n":
+            {
+              "sk": "Video Album (sk) [www.domain-name.com/video-album]",
+              "ro": "Video Album (ro) [www.domain-name.com/video-album]"
+            },
+            "module": "video-album",
+            "url-i18n":
+            {
+              "sk": "video-album-url-sk",
+              "ro": "video-album-url-ro"
+            },
+            "icon": ""
           },
-          "type": "photo-album",
-          "url-i18n":
-          {
-            "sk": "photo-album-url-sk",
-            "ro": "photo-album-url-ro"
-          },
-          "icon": ""
+          "show": true
         },
-        "show": true
-      },
-      {
-        "link":
         {
-          "title-i18n":
+          "link":
           {
-            "sk": "Contact (sk)",
-            "ro": "Contact (ro)"
+            "title-i18n":
+            {
+              "sk": "Photo Album (sk) [www.domain-name.com/photo-album]",
+              "ro": "Photo Album (ro) [www.domain-name.com/photo-album]"
+            },
+            "module": "photo-album",
+            "url-i18n":
+            {
+              "sk": "photo-album-url-sk",
+              "ro": "photo-album-url-ro"
+            },
+            "icon": ""
           },
-          "type": "contact",
-          "url": "",
-          "icon": ""
+          "show": true
         },
-        "show": true
-      }
-    ]
+        {
+          "link":
+          {
+            "title-i18n":
+            {
+              "sk": "Contact (sk) [www.domain-name.com#contact]",
+              "ro": "Contact (ro) [www.domain-name.com#contact]"
+            },
+            "module": "",
+            "url": "#bottom",
+            "icon": ""
+          },
+          "show": true
+        }
+      ]
+    }
   }
 }
