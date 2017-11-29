@@ -1,13 +1,13 @@
 {
   "data":
   {
-    "txt":
-    {
-      "title-i18n":
-      {
-        "sk": "TITLE (sk)",
-        "ro": "TITLE (ro)"
-      }
-    }
+    "news":
+    {},
+    "video-album":
+    {},
+    "photo-album":
+    {},
+    "contact":
+    {}
   }
 }
