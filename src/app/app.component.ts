@@ -1,17 +1,16 @@
-import { Component, ChangeDetectorRef, OnInit, AfterViewInit, ViewChild, HostListener } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, AfterViewInit, HostListener } from '@angular/core';
 
 import { AppService } from '@app/app.service';
 import { HttpGetService } from '@app/core/services/http-get.service';
-import { ScrollService } from '@app/core/services/scroll.service';
 
-import { AppCommunicationService } from '@app/core/communication/app-communication.service';
 import { LanguageCommunicationService } from '@app/core/communication/language-communication.service';
 
-import { App } from '@app/app.model';
+import { Language, Languages } from '@app/languages.model';
+import { Features } from '@app/features.model';
 
 const config =
 {
-  'json': 'assets/app.json'
+  'json': 'assets/app/app.json'
 };
 
 @Component({
@@ -19,16 +18,17 @@ const config =
   templateUrl: './app.view.html',
   styleUrls: ['./app.style.scss'],
   providers: [
-    AppCommunicationService,
     LanguageCommunicationService
   ]
 })
 
 export class AppComponent implements OnInit, AfterViewInit
 {
-  public app = new App();
+  public loaded: boolean;
+  public height: number;
 
-  @ViewChild('scrollEl') scrollEl;
+  public features: Features;
+  public languages: Languages;
 
   @HostListener('window:resize') onResize()
   {
@@ -37,45 +37,16 @@ export class AppComponent implements OnInit, AfterViewInit
 
   constructor(
     private cdr: ChangeDetectorRef,
-
     private httpGet: HttpGetService,
     private appService: AppService,
-    private scrollService: ScrollService,
-
-    private appCommunicationService: AppCommunicationService,
     private languageCommunicationService: LanguageCommunicationService
-  )
-  {
-    this.languageCommunicationService.onChangeLanguage$.subscribe(
-      (language) =>
-      {
-        this.selectLanguage(language);
-      }
-    );
-    this.languageCommunicationService.onVerifyLanguage$.subscribe(
-      () =>
-      {
-        this.appCommunicationService.updateApp(this.app);
-      }
-    );
+  ) {
+    this.init();
   }
 
   ngOnInit()
   {
-    this.httpGet.getJson(config.json).subscribe(
-      (json) =>
-      {
-        this.app.initialize(json);
-        this.app.language.default = this.appService.getAppLanguage(this.app.language);
-        this.app.loaded = (this.app.language.default !== '');
-        window.document.getElementById('logo').className = 'active';
-        this.cdr.detectChanges();
-      },
-      (e) =>
-      {
-        console.log("Ooops, something went wrong...");
-      }
-    );
+    this.initialize();
   }
 
   ngAfterViewInit()
@@ -84,28 +55,74 @@ export class AppComponent implements OnInit, AfterViewInit
     this.cdr.detectChanges();
   }
 
+  private init(): void
+  {
+    this.loaded = false;
+    this.height = 0;
+    this.languages = new Languages();
+    this.features = new Features();
+
+    this.languageCommunicationService.onChangeLanguage$.subscribe(
+      (language) =>
+      {
+        this.selectLanguage(language);
+      }
+    );
+
+    this.languageCommunicationService.onVerifyLanguage$.subscribe(
+      () =>
+      {
+        this.languageCommunicationService.updateLanguage(this.languages);
+      }
+    );
+  }
+
+  private initialize(): void
+  {
+    this.httpGet.getJson(config.json).subscribe(
+      (json) =>
+      {
+        try
+        {
+          this.languages.initialize(json.data.languages);
+          this.features.initialize(json.data.features);
+
+          if (this.languages.list.length > 0)
+          {
+            this.languages.active = this.appService.initializeLanguage(this.languages.list);
+  
+            if (this.languages.active.id !== undefined)
+            {
+              this.loaded = true;
+              window.document.getElementById('logo').className = 'active';
+            }
+  
+            this.cdr.detectChanges();
+          }
+        }
+        catch (e)
+        {
+          console.log("Ooops, something went wrong...");
+        }
+      },
+      (e) =>
+      {
+        console.log("Ooops, something went wrong...");
+      }
+    );
+  }
+
   private handleResize(): void
   {
-    this.app.width = window.innerWidth;
-    this.app.height = window.innerHeight;
+    this.height = window.innerHeight;
   }
 
-  public selectLanguage(language: string): void
+  public selectLanguage(language: Language): void
   {
-    console.log('App language changed:', this.app.language.default, '->', language);
-    this.app.language.default = language;
-    this.appService.updateLanguage(language);
-    this.appCommunicationService.updateApp(this.app);
+    console.log('Language changed:', this.languages.active.id, '->', language.id);
+    this.languages.active = language;
+    this.appService.updateLanguage(language.id);
+    this.languageCommunicationService.updateLanguage(this.languages);
     this.cdr.detectChanges();
-  }
-
-  public handleScroll(): void
-  {
-    console.log(this.scrollEl.navtiveElement.scrollTop);
-  }
-
-  public scrollTo(position: number)
-  {
-    this.scrollService.scrollTo(this.scrollEl, position);
   }
 }

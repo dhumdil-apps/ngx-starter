@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
+
 import { LocalStorageService } from '@app/core/services/local-storage.service';
+
+import { Languages, Language } from '@app/languages.model';
 
 const config =
 {
-  'local-storage-id': 'app-language'
+  'local-storage-id': 'app-language',
+  'routes': {}
 };
 
 @Injectable()
@@ -12,71 +16,73 @@ export class AppService
   constructor(private localStorage: LocalStorageService)
   {}
 
-  public getAppLanguage(language: any): string
+  public initializeLanguage(languages: Language[]): Language
   {
-    try
-    {
-      const localStorageLanguage = this.localStorage.getItem(config['local-storage-id']);
+    // Check the Local Storage for language 
+    const localStorageLanguage = this.localStorage.getItem(config['local-storage-id']);
 
-      if (localStorageLanguage)
+    if (localStorageLanguage)
+    {
+      const language = this.selectLanguage(localStorageLanguage, languages);
+
+      if (language !== undefined)
       {
-        if (this.isAvailableLanguage(localStorageLanguage, language.available))
-        {
-          console.log('lang (source: local-storage):', localStorageLanguage);
-          this.updateLanguage(localStorageLanguage);
-          return (localStorageLanguage);
-        }
+        console.log('lang (source: local-storage):', language.id);
+        this.updateLanguage(language.id);
+        return (language);
       }
     }
-    catch (e)
-    {
-      console.log("Ooops, something went wrong...");
-    }
-
-    return (this.initializeLanguage(language));
+  
+    // Initialize default language
+    return (this.getDefaultLanguage(languages));
   }
 
-  private initializeLanguage(language: any): string
+  private getDefaultLanguage(languages: Language[]): Language
   {
-    try
-    {
-      const browserLanguage = window.navigator.language;
+    // Check users browser language preferences
+    const browserLanguage = window.navigator.language;
 
-      if (browserLanguage)
+    if (browserLanguage)
+    {
+      const language = this.selectLanguage(browserLanguage, languages);
+
+      if (language !== undefined)
       {
-        if (this.isAvailableLanguage(browserLanguage, language.available))
-        {
-          console.log('(source: browser) language:', browserLanguage);
-          this.updateLanguage(browserLanguage);
-          return (browserLanguage);
-        }
+        console.log('(source: browser) language:', language.id);
+        this.updateLanguage(language.id);
+        return (language);
       }
     }
-    catch (e)
-    {
-      console.log("Ooops, something went wrong...");
-    }
 
-    console.log('(source: json) language:', language.default);
-    this.updateLanguage(language.default);
-    return (language.default);
+    // Just set the first available language as default
+    console.log('(source: json) language:', languages[0].id);
+    this.updateLanguage(languages[0].id);
+    return (languages[0]);
   }
 
-  private isAvailableLanguage(language: string, languages: any): boolean
+  private selectLanguage(language: string, languages: Language[]): Language
   {
     for (let i = 0; i < languages.length; i++)
     {
       if (language === languages[i].id)
       {
-        return (true);
+        return (languages[i]);
       }
     }
-    return (false);
+    return (undefined);
   }
 
   public updateLanguage(language: string): void
   {
     this.localStorage.setItem(config['local-storage-id'], language);
     window.document.documentElement.lang = language;
+  }
+
+  public getRoute(module: string): string
+  {
+    switch (module)
+    {
+      default: return ('/');
+    }
   }
 }
