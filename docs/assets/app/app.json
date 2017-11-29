@@ -1,0 +1,38 @@
+{
+  "data":
+  {
+    "languages":
+    [
+      {
+        "id": "sk",
+        "icon": "assets/app/img/sk.svg",
+        "title-i18n":
+        {
+          "sk": "Slovenský",
+          "ro": "Slovacă"
+        }
+      },
+      {
+        "id": "ro",
+        "icon": "assets/app/img/ro.svg",
+        "title-i18n":
+        {
+          "sk": "Rumunský",
+          "ro": "Română"
+        }
+      }
+    ],
+    "features":
+    [
+      {
+        "module": "home",
+        "route": "",
+        "title-i18n":
+        {
+          "sk": "„Suspendisse ornare eu sem non auctor, nam vitae libero ut tortor sagittis auctor“",
+          "ro": "„Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit“"
+        }
+      }
+    ]
+  }
+}
