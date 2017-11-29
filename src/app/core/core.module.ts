@@ -10,10 +10,7 @@ import { PageService } from './services/page.service';
 import { ScrollService } from './services/scroll.service';
 import { UrlService } from './services/url.service';
 
-import { AppCommunicationService } from './communication/app-communication.service';
 import { LanguageCommunicationService } from './communication/language-communication.service';
-
-import { UrlMappingService } from './url-mapping.service';
 
 @NgModule({
   imports: [
@@ -27,10 +24,7 @@ import { UrlMappingService } from './url-mapping.service';
     ScrollService,
     UrlService,
 
-    AppCommunicationService,
-    LanguageCommunicationService,
-
-    UrlMappingService
+    LanguageCommunicationService
   ],
   declarations: []
 })

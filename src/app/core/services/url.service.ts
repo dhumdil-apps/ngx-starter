@@ -1,46 +1,47 @@
 import { Injectable } from '@angular/core';
 
-import { App } from '@app/app.model';
+import { Features } from '@app/features.model';
+import { Language, Languages } from '@app/languages.model';
 
 @Injectable()
 export class UrlService
 {
-  public detectedUrlLanguage(url: string, type: string, app: App): string
+  public detectedUrlLanguage(url: string, features: Features, languages: Languages): Language
   {
-    try
-    {
-      let links = app.navigation.links.filter(
-        (link) =>
-        {
-          return (link.type === type);
-        }
-      );
-      let languages = app.language.available.map((language) => language.id);
+    let route;
 
-      for (let i = 0; i < links.length; i++)
+    if (url === '')
+    {
+      return (languages.active);
+    }
+
+    for (let i = 0; i < features.list.length; i++)
+    {
+      for (let j = 0; j < languages.list.length; j++)
       {
-        if (links[i].id === undefined)
+
+        try
         {
-          for (let j = 0; j < languages.length; j++)
+          route = features.list[i]['routeI18n'][languages.list[j].id];
+
+          if (route === undefined)
           {
-            if (links[i]['url-i18n'][languages[j]] === url)
-            {
-              return (languages[j]);
-            }
+            throw 'undefined';
           }
         }
-        else
+        catch (e)
         {
-          console.log('No i18n found.');
-          return ('');
+          route = '';
         }
+
+        if (route === url)
+        {
+          return (languages.list[j]);
+        }
+
       }
     }
-    catch (e)
-    {
-      console.log("Ooops, something went wrong...");
-    }
 
-    return ('');
+    return (languages.active);
   }
 }

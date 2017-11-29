@@ -1,0 +1,42 @@
+<div class="navigation {{ active ? 'active' : '' }}">
+
+  <div class="menu" *ngIf="loaded">
+
+    <div *ngIf="(features.list.length > 0)">
+
+      <app-feature
+        *ngFor     = "let feature of features.list"
+        [active]   = "(feature.id === features.active.id)"
+        [feature]  = "feature"
+        [language] = "languages.active.id"
+        (onClick)  = "toggleNavigation()"
+      ></app-feature>
+
+    </div>
+    
+  </div>
+
+  <app-language
+    *ngIf              = "loaded"
+    [languages]        = "languages"
+    (onSelectLanguage) = "selectLanguage($event)"
+  ></app-language>
+
+  <div class="header">
+
+    <div class="flex"></div>
+
+    <div class="navigation-title" *ngIf="loaded && (features.list.length > 0)">
+      <span>{{ i18n(features.active, 'title') }}</span>
+    </div>
+
+    <div class="flex"></div>
+
+    <app-hamburger
+      [active]  = "active"
+      (onClick) = "toggleNavigation()"
+    ></app-hamburger>
+
+  </div>
+
+</div>
