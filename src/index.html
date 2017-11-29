@@ -1,31 +1,69 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <title>Angular 5</title>
+
+  <!-- basic -->
   <base href="/">
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <meta name="twitter:card" content="summary"/>
-  <meta property="og:url" content="https://m16peter.github.io/dhumdil/#/"/>
+  <!-- seo -->
+  <title>Angular 5</title>
+  <meta property="og:url" content="https://github.com/m16peter"/>
   <meta property="og:title" content="Angular 5"/>
   <meta property="og:description" content="Angular - one framework to rule them all!"/>
   <meta property="og:image" content="assets/img/angular.svg"/>
+  <meta name="twitter:card" content="Angular - one framework to rule them all!"/>
 
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+  <!-- favicons -->
+  <link rel="icon" type="image/x-icon" href="assets/favicons/favicon.ico">
+
+  <!-- reset.css -->
+  <style rel="stylesheet">
+    * a:hover,* a:active,* a:focus,a{text-decoration:none;}
+    *:active,*:focus{outline:none!important;}
+    html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;}
+    body{display:block;margin:0;}
+    a{background-color:transparent;-webkit-text-decoration-skip:objects;}
+    img{border-style:none;}
+    svg:not(:root){overflow:hidden;}
+    html,body{width:100%;height:100%;}
+    body{position:relative;font-family:sans-serif;}
+  </style>
+
+  <!-- basic.css -->
+  <style rel="stylesheet">
+    #logo{position:absolute;will-change:transform;z-index:600;transition:all 400ms ease-out;}
+    #logo>svg{transition:all 400ms ease-out;}
+    #logo.loading{top:calc(50% - 80px);left:calc(50% - 80px);}
+    #logo.loading>svg{height:160px;width:160px;}
+    #logo.active{top:5px;left:30px;}
+    #logo.active>svg{height:40px;width:40px;}
+    .loader{position:absolute;top:calc(50% - 100px);left:calc(50% - 100px);border:10px solid #fafafa;border-radius:50%;border-top:10px solid #369;width:180px;height:180px;animation:spin 1s linear infinite;}
+    @keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+  </style>
+
 </head>
 <body>
+
   <a id="logo" href="/" class="loading" tabindex="0">
     <svg viewBox="0 0 250 250">
       <g>
-        <polygon fill="#D03" points="125,30 125,30 125,30 31.9,63.2 46.1,186.3 125,230 125,230 125,230 203.9,186.3 218.1,63.2 	"/>
-        <polygon fill="#C03" points="125,30 125,52.2 125,52.1 125,153.4 125,153.4 125,230 125,230 203.9,186.3 218.1,63.2 125,30 	"/>
+        <polygon fill="#D03" points="125,30 125,30 125,30 31.9,63.2 46.1,186.3 125,230 125,230 125,230 203.9,186.3 218.1,63.2"/>
+        <polygon fill="#C03" points="125,30 125,52.2 125,52.1 125,153.4 125,153.4 125,230 125,230 203.9,186.3 218.1,63.2 125,30"/>
         <path fill="#FFF" d="M125,52.1L66.8,182.6h0h21.7h0l11.7-29.2h49.4l11.7,29.2h0h21.7h0L125,52.1L125,52.1L125,52.1L125,52.1L125,52.1z M142,135.4H108l17-40.9L142,135.4z"/>
       </g>
     </svg>
   </a>
+
   <app-root>
     <div class="loader"></div>
   </app-root>
+
+  <noscript>
+    <h1>Ooops, JavaScript not running...</h1>
+  </noscript>
+
 </body>
 </html>
