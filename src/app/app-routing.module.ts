@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-// Lazy load all the 'Feature Modules' (for a smaller main-bundle size)
+// Lazy load all the features here
 const routes: Routes =
 [
   {
     path: '',
-    loadChildren: 'app/home/home.module#HomeModule'
+    loadChildren: 'app/features/home/home.module#HomeModule'
   },
   {
     path: '**',
@@ -17,10 +17,7 @@ const routes: Routes =
 
 @NgModule({
   imports: [
-    // When combining with backend router, use this option:
-    RouterModule.forRoot(routes, { useHash: true })
-    // otherwise this one:
-    // RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, {useHash: true})
   ],
   exports: [
     RouterModule
