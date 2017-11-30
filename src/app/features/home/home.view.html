@@ -1,7 +1,23 @@
-<div class="home" #scrollEl>
+<div #scrollEl class="home" [style.height.px]="home.height" *ngIf="home.loaded">
 
-  <div *ngIf="home.loaded">
-    <h1>{{ i18n(languages.active, 'title') }}</h1>
+  <div class="news">
+    <h1>NEWS</h1>
+  </div>
+
+  <div class="news">
+    <h1>VIDEO ALBUM</h1>
+  </div>
+
+  <div class="news">
+    <h1>PHOTO ALBUM</h1>
+  </div>
+
+  <div class="news">
+    <h1>CONTACT</h1>
   </div>
 
 </div>
+<!--
+<div class="loading" *ngIf="home.loaded">
+  <div class="loader"></div>
+</div> -->

@@ -1,12 +1,13 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, OnDestroy, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/retry';
 
-import { HttpGetService } from '@app/core/services/http-get.service';
 import { I18nService } from '@app/core/services/i18n.service';
 import { PageService } from '@app/core/services/page.service';
 import { ScrollService } from '@app/core/services/scroll.service';
 
-import { LanguageCommunicationService } from '@app/core/communication/language-communication.service';
+import { LanguageService } from '@app/core/communication/language-communication.service';
 
 import { Feature } from '@app/features.model';
 import { Home } from './home.model';
@@ -25,7 +26,7 @@ const config =
   styleUrls: ['home.style.scss']
 })
 
-export class HomeComponent implements OnInit, OnDestroy
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy
 {
   public home: Home;
   public languages: Languages;
@@ -35,19 +36,17 @@ export class HomeComponent implements OnInit, OnDestroy
   @ViewChild('scrollEl') scrollEl;
 
   constructor(
-    private httpGetService: HttpGetService,
+    private cdr: ChangeDetectorRef,
+    private http: HttpClient,
     private i18nService: I18nService,
     private pageService: PageService,
     private scrollService: ScrollService,
-    private languageCommunicationService: LanguageCommunicationService
-  ) {
-    this.init();
-  }
+    private languageService: LanguageService
+  ) { this.init(); }
 
-  ngOnInit()
-  {
-    this.initialize();
-  }
+  ngOnInit() { this.onInit(); }
+
+  ngAfterViewInit() { this.afterViewInit(); }
 
   private init(): void
   {
@@ -55,7 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy
     this.pageService.updateTitle(config.title);
     this.pageService.updateDescription(config.description);
 
-    this.subscription = this.languageCommunicationService.onUpdateLanguage$.subscribe(
+    this.subscription = this.languageService.onUpdateLanguage$.subscribe(
       (languages) =>
       {
         this.languages = languages;
@@ -63,11 +62,11 @@ export class HomeComponent implements OnInit, OnDestroy
     );
   }
 
-  private initialize(): void
+  private onInit(): void
   {
-    this.languageCommunicationService.verifyLanguage();
+    this.languageService.verifyLanguage();
 
-    this.httpGetService.getJson(config.json).subscribe(
+    this.http.get(config.json).retry(3).subscribe(
       (json) =>
       {
         this.home.initialize(json);
@@ -77,6 +76,12 @@ export class HomeComponent implements OnInit, OnDestroy
         console.log("Ooops, something went wrong!");
       }
     );
+  }
+
+  private afterViewInit(): void
+  {
+    this.home.height = window.innerHeight;
+    this.cdr.detectChanges();
   }
 
   public i18n(obj: any, key: string): any

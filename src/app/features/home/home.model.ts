@@ -1,6 +1,7 @@
 export class Home
 {
   public loaded: boolean;
+  public height: number;
 
   constructor()
   {
@@ -9,6 +10,7 @@ export class Home
 
   private init(): void
   {
+    this.height = 0;
     this.loaded = false;
   }
 
@@ -16,6 +18,7 @@ export class Home
   {
     try
     {
+      // console.log(json);
       this.loaded = true;
     }
     catch (e)

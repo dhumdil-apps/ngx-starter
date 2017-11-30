@@ -1,0 +1,40 @@
+<div class="navigation" #appNavigation (mouseleave)="close()" (mouseenter)="open()">
+
+  <div class="shape" (click)="toggle()"></div>
+
+  <div class="hamburger" (click)="toggle()">
+    <span class="hamburger_line_1"></span>
+    <span class="hamburger_line_2"></span>
+    <span class="hamburger_line_3"></span>
+  </div>
+
+  <div *ngIf="loaded">
+
+    <div class="features">
+      <div class="feature {{ featureStatus(feature.id) }}" *ngFor="let feature of features.list">
+
+        <a (click)="selectFeature(feature)" routerLink="{{ parseRoute(feature) }}" tabindex="0">
+          <span>{{ i18n(feature, 'title') }}</span>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="languages">
+      <div class="language {{ languageStatus(language.id) }}" *ngFor="let language of languages.list; let i = index">
+          <img
+            src     = "{{ language.icon }}"
+            alt     = "{{ language.id }}"
+            title   = "{{ i18n(language, 'title') }}"
+            (click) = "selectLanguage(language)"
+          />
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div *ngIf="loaded">
+  <router-outlet></router-outlet>
+</div>

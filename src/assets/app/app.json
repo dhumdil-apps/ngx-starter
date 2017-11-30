@@ -32,6 +32,24 @@
           "sk": "„Suspendisse ornare eu sem non auctor, nam vitae libero ut tortor sagittis auctor“",
           "ro": "„Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit“"
         }
+      },
+      {
+        "module": "home",
+        "route": "",
+        "title-i18n":
+        {
+          "sk": "sagittis auctor",
+          "ro": "consectetur"
+        }
+      },
+      {
+        "module": "home",
+        "route": "",
+        "title-i18n":
+        {
+          "sk": "Suspendisse",
+          "ro": "Neque porro"
+        }
       }
     ]
   }

@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
-// 'HttpModule' is depracated, but 'HttpClientModule' is 'buggy': https://github.com/angular/angular/issues/18680
-import { HttpModule } from '@angular/http';
-
-import { HttpGetService } from './services/http-get.service';
 import { I18nService } from './services/i18n.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { PageService } from './services/page.service';
@@ -14,10 +11,9 @@ import { LanguageService } from './communication/language-communication.service'
 
 @NgModule({
   imports: [
-    HttpModule
+    HttpClientModule
   ],
   providers: [
-    HttpGetService,
     I18nService,
     LocalStorageService,
     PageService,
