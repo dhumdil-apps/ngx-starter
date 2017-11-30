@@ -50,6 +50,26 @@
           "sk": "Suspendisse",
           "ro": "Neque porro"
         }
+      },
+      {
+        "module": "home",
+        "route": "",
+        "title": "Lorem Ipsum"
+      },
+      {
+        "module": "home",
+        "route": "",
+        "title": "Lorem Ipsum"
+      },
+      {
+        "module": "home",
+        "route": "",
+        "title": "Lorem Ipsum"
+      },
+      {
+        "module": "home",
+        "route": "",
+        "title": "Lorem Ipsum"
       }
     ]
   }

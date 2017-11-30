@@ -18,7 +18,7 @@ export class AppService
 
   public initializeLanguage(languages: Language[]): Language
   {
-    // Check the Local Storage for language 
+    // Check the Local Storage for language
     const localStorageLanguage = this.localStorage.getItem(config['local-storage-id']);
 
     if (localStorageLanguage)
@@ -27,12 +27,12 @@ export class AppService
 
       if (language !== undefined)
       {
-        console.log('lang (source: local-storage):', language.id);
+        // console.log('lang (source: local-storage):', language.id);
         this.updateLanguage(language.id);
         return (language);
       }
     }
-  
+
     // Initialize default language
     return (this.getDefaultLanguage(languages));
   }
@@ -48,14 +48,14 @@ export class AppService
 
       if (language !== undefined)
       {
-        console.log('(source: browser) language:', language.id);
+        // console.log('(source: browser) language:', language.id);
         this.updateLanguage(language.id);
         return (language);
       }
     }
 
     // Just set the first available language as default
-    console.log('(source: json) language:', languages[0].id);
+    // console.log('(source: json) language:', languages[0].id);
     this.updateLanguage(languages[0].id);
     return (languages[0]);
   }

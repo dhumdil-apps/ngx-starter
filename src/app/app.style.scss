@@ -139,6 +139,7 @@
   height: calc(100% - 200px);
   padding-top: 150px;
   background-color: #dee;
+  -webkit-overflow-scrolling: touch;
   overflow-y: auto;
   overflow-x: hidden;
   will-change: transform;
