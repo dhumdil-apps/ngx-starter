@@ -10,7 +10,7 @@ import { PageService } from './services/page.service';
 import { ScrollService } from './services/scroll.service';
 import { UrlService } from './services/url.service';
 
-import { LanguageCommunicationService } from './communication/language-communication.service';
+import { LanguageService } from './communication/language-communication.service';
 
 @NgModule({
   imports: [
@@ -24,7 +24,7 @@ import { LanguageCommunicationService } from './communication/language-communica
     ScrollService,
     UrlService,
 
-    LanguageCommunicationService
+    LanguageService
   ],
   declarations: []
 })

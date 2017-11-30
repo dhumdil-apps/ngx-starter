@@ -1,9 +1,9 @@
-import { Component, ChangeDetectorRef, OnInit, AfterViewInit, HostListener } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 
 import { AppService } from '@app/app.service';
 import { HttpGetService } from '@app/core/services/http-get.service';
 
-import { LanguageCommunicationService } from '@app/core/communication/language-communication.service';
+import { LanguageService } from '@app/core/communication/language-communication.service';
 
 import { Language, Languages } from '@app/languages.model';
 import { Features } from '@app/features.model';
@@ -15,14 +15,26 @@ const config =
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.view.html',
-  styleUrls: ['./app.style.scss'],
+  template:
+  `
+  <div *ngIf="loaded">
+
+    <app-navigation
+      [languages]        = "languages"
+      [features]         = "features"
+      (onSelectLanguage) = "selectLanguage($event)"
+    ></app-navigation>
+
+    <router-outlet></router-outlet>
+
+  </div>
+  `,
   providers: [
-    LanguageCommunicationService
+    LanguageService
   ]
 })
 
-export class AppComponent implements OnInit, AfterViewInit
+export class AppComponent implements OnInit
 {
   public loaded: boolean;
   public height: number;
@@ -30,16 +42,11 @@ export class AppComponent implements OnInit, AfterViewInit
   public features: Features;
   public languages: Languages;
 
-  @HostListener('window:resize') onResize()
-  {
-    this.handleResize();
-  }
-
   constructor(
     private cdr: ChangeDetectorRef,
     private httpGet: HttpGetService,
     private appService: AppService,
-    private languageCommunicationService: LanguageCommunicationService
+    private languageService: LanguageService
   ) {
     this.init();
   }
@@ -49,30 +56,24 @@ export class AppComponent implements OnInit, AfterViewInit
     this.initialize();
   }
 
-  ngAfterViewInit()
-  {
-    this.handleResize();
-    this.cdr.detectChanges();
-  }
-
   private init(): void
   {
     this.loaded = false;
-    this.height = 0;
+
     this.languages = new Languages();
     this.features = new Features();
 
-    this.languageCommunicationService.onChangeLanguage$.subscribe(
+    this.languageService.onChangeLanguage$.subscribe(
       (language) =>
       {
         this.selectLanguage(language);
       }
     );
 
-    this.languageCommunicationService.onVerifyLanguage$.subscribe(
+    this.languageService.onVerifyLanguage$.subscribe(
       () =>
       {
-        this.languageCommunicationService.updateLanguage(this.languages);
+        this.languageService.updateLanguage(this.languages);
       }
     );
   }
@@ -90,13 +91,7 @@ export class AppComponent implements OnInit, AfterViewInit
           if (this.languages.list.length > 0)
           {
             this.languages.active = this.appService.initializeLanguage(this.languages.list);
-  
-            if (this.languages.active.id !== undefined)
-            {
-              this.loaded = true;
-              window.document.getElementById('logo').className = 'active';
-            }
-  
+            this.loaded = (this.languages.active.id !== undefined);
             this.cdr.detectChanges();
           }
         }
@@ -112,17 +107,12 @@ export class AppComponent implements OnInit, AfterViewInit
     );
   }
 
-  private handleResize(): void
-  {
-    this.height = window.innerHeight;
-  }
-
   public selectLanguage(language: Language): void
   {
     console.log('Language changed:', this.languages.active.id, '->', language.id);
     this.languages.active = language;
     this.appService.updateLanguage(language.id);
-    this.languageCommunicationService.updateLanguage(this.languages);
+    this.languageService.updateLanguage(this.languages);
     this.cdr.detectChanges();
   }
 }

@@ -6,11 +6,11 @@ export class Language
 
   public title: string;
   public titleI18n: any;
-  
+
   constructor()
   {
     this.id = undefined;
-    
+
     this.icon = undefined;
 
     this.title = undefined;

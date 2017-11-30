@@ -4,7 +4,7 @@ import { Subject } from 'rxjs/Subject';
 import { Language, Languages } from '@app/languages.model';
 
 @Injectable()
-export class LanguageCommunicationService
+export class LanguageService
 {
   private onChangeLanguage = new Subject<Language>();
   private onUpdateLanguage = new Subject<Languages>();
