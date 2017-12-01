@@ -88,7 +88,7 @@ export class AppComponent implements OnInit
         }
         catch (e)
         {
-          console.log(config.error_message, e);
+          console.log(config.error_message);
         }
       },
       (e) =>
@@ -117,7 +117,7 @@ export class AppComponent implements OnInit
 
   public selectFeature(): void
   {
-    this.close();
+    this.toggle();
   }
 
   public parseRoute(feature: Feature): string
@@ -137,27 +137,39 @@ export class AppComponent implements OnInit
 
   public toggle(): void
   {
-    if (this.navigationState === '')
+    if (this.navigationState === 'inactive')
     {
+      console.log('active');
       this.renderer.addClass(this.appNavigation.nativeElement, 'active');
       this.navigationState = 'active';
     }
-    else
+    else if (this.navigationState === 'active')
     {
+      console.log('inactive');
       this.renderer.removeClass(this.appNavigation.nativeElement, 'active');
-      this.navigationState = '';
+      this.navigationState = 'inactive';
+    }
+    else if (this.navigationState === 'mouseenter')
+    {
+      this.navigationState = 'active';
+    }
+    else if (this.navigationState === 'mouseleave')
+    {
+      this.navigationState = 'inactive';
     }
   }
 
   public open(): void
   {
-    this.navigationState = 'active';
+    console.log('mouseenter');
+    this.navigationState = 'mouseenter';
     this.renderer.addClass(this.appNavigation.nativeElement, 'active');
   }
 
   public close(): void
   {
-    this.navigationState = '';
+    console.log('mouseleave');
+    this.navigationState = 'mouseleave';
     this.renderer.removeClass(this.appNavigation.nativeElement, 'active');
   }
 }
