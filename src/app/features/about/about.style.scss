@@ -1,4 +1,4 @@
-.home {
+.about {
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -9,9 +9,5 @@
   > div {
     padding: 100px 20px;
     font-family: cursive;
-
-    h1 {
-      text-transform: uppercase;
-    }
   }
 }

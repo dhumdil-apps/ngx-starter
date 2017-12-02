@@ -8,10 +8,10 @@ export class Feature
 
   public title: string;
   public titleI18n: any;
-  
+
   constructor()
   {
-    this.id = 0;
+    this.id = undefined;
     this.module = undefined;
 
     this.route = undefined;
@@ -45,7 +45,6 @@ export class Features
       if (features.length > 0)
       {
         this.list = features;
-        this.list.map((feature, index) => feature.id = index);
         this.active = features[0];
       }
       else

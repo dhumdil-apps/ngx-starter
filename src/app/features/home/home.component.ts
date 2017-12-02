@@ -1,23 +1,20 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/retry';
 
-import { I18nService } from '@app/core/services/i18n.service';
-import { PageService } from '@app/core/services/page.service';
-import { ScrollService } from '@app/core/services/scroll.service';
+import { AppCommunicationService } from '@app/app-communication.service';
+import { I18nService } from '@app/core/i18n.service';
+import { PageService } from '@app/core/page.service';
 
-import { LanguageService } from '@app/core/communication/language-communication.service';
-
-import { Feature } from '@app/features.model';
 import { Home } from './home.model';
-import { Languages } from '@app/languages.model';
 
 const config =
 {
   'json': 'assets/home/home.json',
   'title': 'Home | www.bajas.sk',
-  'description': '...'
+  'description': '...',
+  'err_message': 'Ooops, something went wrong!'
 };
 
 @Component({
@@ -26,73 +23,61 @@ const config =
   styleUrls: ['home.style.scss']
 })
 
-export class HomeComponent implements OnInit, AfterViewInit, OnDestroy
+export class HomeComponent implements OnInit, OnDestroy
 {
   public home: Home;
-  public languages: Languages;
+  public languageId: string;
 
   private subscription: Subscription;
-
-  @ViewChild('scrollEl') scrollEl;
 
   constructor(
     private cdr: ChangeDetectorRef,
     private http: HttpClient,
     private i18nService: I18nService,
     private pageService: PageService,
-    private scrollService: ScrollService,
-    private languageService: LanguageService
-  ) { this.init(); }
-
-  ngOnInit() { this.onInit(); }
-
-  ngAfterViewInit() { this.afterViewInit(); }
-
-  private init(): void
-  {
+    private appCommunicationService: AppCommunicationService
+  ) {
+    this.languageId = undefined;
     this.home = new Home();
+
     this.pageService.updateTitle(config.title);
     this.pageService.updateDescription(config.description);
 
-    this.subscription = this.languageService.onUpdateLanguage$.subscribe(
-      (languages) =>
+    this.subscription = this.appCommunicationService.onChangeLanguage$
+      .subscribe((languageId: string) =>
       {
-        this.languages = languages;
+        console.log('Language verifyed!', languageId);
+        this.languageId = languageId;
+        this.cdr.detectChanges();
       }
     );
   }
 
-  private onInit(): void
+  ngOnInit()
   {
-    this.languageService.verifyLanguage();
+    this.appCommunicationService.verifyLanguage();
 
-    this.http.get(config.json).retry(3).subscribe(
-      (json) =>
+    this.http.get(config.json)
+      .retry(3)
+      .subscribe((json) =>
       {
+        console.log('Json loaded!', json);
         this.home.initialize(json);
+        this.cdr.detectChanges();
       },
       (e) =>
       {
-        console.log("Ooops, something went wrong!");
+        console.log(config.err_message, e);
       }
     );
-  }
-
-  private afterViewInit(): void
-  {
-    this.home.height = window.innerHeight;
-    this.cdr.detectChanges();
   }
 
   public i18n(obj: any, key: string): any
   {
-    return this.i18nService.tryI18n(obj, key, this.languages.active.id);
-  }
-
-  // TODO
-  public scrollTo(position: number)
-  {
-    this.scrollService.scrollTo(this.scrollEl, position);
+    if (this.languageId !== undefined)
+    {
+      return this.i18nService.tryI18n(obj, key, this.languageId);
+    }
   }
 
   ngOnDestroy()

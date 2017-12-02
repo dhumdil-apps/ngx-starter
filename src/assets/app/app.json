@@ -6,7 +6,7 @@
       {
         "id": "sk",
         "icon": "assets/app/img/sk.svg",
-        "title-i18n":
+        "titleI18n":
         {
           "sk": "Slovenský",
           "ro": "Slovacă"
@@ -15,7 +15,7 @@
       {
         "id": "ro",
         "icon": "assets/app/img/ro.svg",
-        "title-i18n":
+        "titleI18n":
         {
           "sk": "Rumunský",
           "ro": "Română"
@@ -25,51 +25,28 @@
     "features":
     [
       {
+        "id": 0,
         "module": "home",
         "route": "",
-        "title-i18n":
+        "titleI18n":
         {
-          "sk": "„Suspendisse ornare eu sem non auctor, nam vitae libero ut tortor sagittis auctor“",
-          "ro": "„Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit“"
+          "sk": "Suspendisse ornare",
+          "ro": "Neque porro quisquam"
         }
       },
       {
-        "module": "home",
-        "route": "",
-        "title-i18n":
+        "id": 1,
+        "module": "about",
+        "routeI18n":
         {
-          "sk": "sagittis auctor",
-          "ro": "consectetur"
-        }
-      },
-      {
-        "module": "home",
-        "route": "",
-        "title-i18n":
+          "sk": "o-nas",
+          "ro": "despre-noi"
+        },
+        "titleI18n":
         {
-          "sk": "Suspendisse",
-          "ro": "Neque porro"
+          "sk": "Quis Autem",
+          "ro": "Ut Enim"
         }
-      },
-      {
-        "module": "home",
-        "route": "",
-        "title": "Lorem Ipsum"
-      },
-      {
-        "module": "home",
-        "route": "",
-        "title": "Lorem Ipsum"
-      },
-      {
-        "module": "home",
-        "route": "",
-        "title": "Lorem Ipsum"
-      },
-      {
-        "module": "home",
-        "route": "",
-        "title": "Lorem Ipsum"
       }
     ]
   }

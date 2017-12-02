@@ -1,0 +1,24 @@
+{
+  "data":
+  {
+    "feature":
+    {
+      "id": 1,
+      "module": "about",
+      "routeI18n":
+      {
+        "sk": "o-nas",
+        "ro": "despre-noi"
+      },
+      "titleI18n":
+      {
+        "sk": "Quis Autem",
+        "ro": "Ut Enim"
+      }
+    },
+    "languages":
+    [
+      "sk", "ro"
+    ]
+  }
+}

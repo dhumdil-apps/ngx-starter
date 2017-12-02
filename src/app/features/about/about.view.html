@@ -1,0 +1,22 @@
+<div *ngIf="loading$ | async">
+  <div class="about full-screen" *ngIf="about.loaded" #scrollEl>
+    <div>
+
+      <h1>{{ i18n(about.feature, 'title') }}</h1>
+
+      <h1>...</h1>
+      <h1>...</h1>
+      <h1>...</h1>
+      <h1>...</h1>
+      <h1>...</h1>
+      <h1>...</h1>
+      <h1>...</h1>
+      <h1>...</h1>
+      <h1>...</h1>
+      <h1>...</h1>
+
+      <h1 style="cursor: pointer" (click)="scrollTo(0)">SCROLL TOP</h1>
+
+    </div>
+  </div>
+</div>

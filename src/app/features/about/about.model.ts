@@ -1,9 +1,9 @@
 import { Feature } from '@app/features.model';
 
-export class Home
+export class About
 {
   public feature: Feature;
-  public height: number;
+  public languages: string[];
   public loaded: boolean;
 
   constructor()
@@ -14,7 +14,7 @@ export class Home
   private init(): void
   {
     this.feature = new Feature();
-    this.height = 0;
+    this.languages = [];
     this.loaded = false;
   }
 
@@ -22,7 +22,9 @@ export class Home
   {
     try
     {
+      console.log("Json loaded!");
       this.feature = json['data']['feature'];
+      this.languages = json['data']['languages'];
       this.loaded = true;
     }
     catch (e)

@@ -1,13 +1,16 @@
 {
   "data":
   {
-    "news":
-    {},
-    "video-album":
-    {},
-    "photo-album":
-    {},
-    "contact":
-    {}
+    "feature":
+    {
+      "id": 0,
+      "module": "home",
+      "route": "",
+      "titleI18n":
+      {
+        "sk": "Suspendisse ornare",
+        "ro": "Neque porro quisquam"
+      }
+    }
   }
 }

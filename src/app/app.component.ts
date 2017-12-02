@@ -1,11 +1,10 @@
-import { Component, ChangeDetectorRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/retry';
 
+import { AppCommunicationService } from '@app/app-communication.service';
 import { AppService } from '@app/app.service';
-import { I18nService } from '@app/core/services/i18n.service';
-
-import { LanguageService } from '@app/core/communication/language-communication.service';
+import { I18nService } from '@app/core/i18n.service';
 
 import { Language, Languages } from '@app/languages.model';
 import { Feature, Features } from '@app/features.model';
@@ -21,81 +20,79 @@ const config =
   templateUrl: 'app.view.html',
   styleUrls: ['app.style.scss'],
   providers: [
-    LanguageService
+    AppCommunicationService
   ]
 })
 
 export class AppComponent implements OnInit
 {
+  public features: Features;
+  public languages: Languages;
   public loaded: boolean;
   public navigationState: string;
 
-  public features: Features;
-  public languages: Languages;
-
-  @ViewChild('appNavigation') appNavigation;
-
   constructor(
-    private cdr: ChangeDetectorRef,
-    private renderer: Renderer2,
-    private http: HttpClient,
-    private i18nService: I18nService,
+    private appCommunicationService: AppCommunicationService,
     private appService: AppService,
-    private languageService: LanguageService
-  ) { this.init(); }
-
-  ngOnInit() { this.onInit(); }
-
-  private init(): void
-  {
+    private cdr: ChangeDetectorRef,
+    private http: HttpClient,
+    private i18nService: I18nService
+  ) {
     this.loaded = false;
     this.navigationState = '';
 
     this.languages = new Languages();
     this.features = new Features();
 
-    this.languageService.onChangeLanguage$.subscribe(
-      (language) =>
+    this.appCommunicationService.onSelectLanguage$
+      .subscribe((languageId: string) =>
       {
-        this.selectLanguage(language);
+        for (let i = 0; i < this.languages.list.length; i++)
+        {
+          if (this.languages.list[i].id === languageId)
+          {
+            this.selectLanguage(this.languages.list[i]);
+            break;
+          }
+        }
       }
     );
 
-    this.languageService.onVerifyLanguage$.subscribe(
-      () =>
+    this.appCommunicationService.onVerifyLanguage$
+      .subscribe(() =>
       {
-        this.languageService.updateLanguage(this.languages);
+        this.appCommunicationService.changeLanguage(this.languages.active.id);
       }
     );
   }
 
-  private onInit(): void
+  ngOnInit()
   {
-    this.http.get(config.json).retry(3).subscribe(
-      (json) =>
+    this.http.get(config.json)
+      .retry(3)
+      .subscribe((json) =>
       {
         try
         {
           this.languages.initialize(json['data']['languages']);
           this.features.initialize(json['data']['features']);
 
-          if (this.languages.list.length > 0)
+          if (this.languages.list.length > 0 && this.languages.active.id !== undefined)
           {
             this.languages.active = this.appService.initializeLanguage(this.languages.list);
-            this.loaded = (this.languages.active.id !== undefined);
+            this.loaded = true;
             this.cdr.detectChanges();
           }
         }
         catch (e)
         {
-          console.log(config.error_message);
+          console.log(config.error_message, e);
         }
       },
       (e) =>
       {
-        console.log(config.error_message);
-      }
-    );
+        console.log(config.error_message, e);
+      });
   }
 
   public i18n(obj: any, key: string): any
@@ -107,17 +104,12 @@ export class AppComponent implements OnInit
   {
     if (this.languages.active.id !== language.id)
     {
-      // console.log('Language changed:', this.languages.active.id, '->', language.id);
+      console.log('Language changed:', this.languages.active.id, '->', language.id);
       this.languages.active = language;
       this.appService.updateLanguage(language.id);
-      this.languageService.updateLanguage(this.languages);
+      this.appCommunicationService.changeLanguage(this.languages.active.id);
       this.cdr.detectChanges();
     }
-  }
-
-  public selectFeature(): void
-  {
-    this.toggle();
   }
 
   public parseRoute(feature: Feature): string
@@ -135,41 +127,8 @@ export class AppComponent implements OnInit
     return ((id === this.languages.active.id) ? 'language_active' : '');
   }
 
-  public toggle(): void
+  public toggleMenu(): void
   {
-    if (this.navigationState === 'inactive')
-    {
-      console.log('active');
-      this.renderer.addClass(this.appNavigation.nativeElement, 'active');
-      this.navigationState = 'active';
-    }
-    else if (this.navigationState === 'active')
-    {
-      console.log('inactive');
-      this.renderer.removeClass(this.appNavigation.nativeElement, 'active');
-      this.navigationState = 'inactive';
-    }
-    else if (this.navigationState === 'mouseenter')
-    {
-      this.navigationState = 'active';
-    }
-    else if (this.navigationState === 'mouseleave')
-    {
-      this.navigationState = 'inactive';
-    }
-  }
-
-  public open(): void
-  {
-    console.log('mouseenter');
-    this.navigationState = 'mouseenter';
-    this.renderer.addClass(this.appNavigation.nativeElement, 'active');
-  }
-
-  public close(): void
-  {
-    console.log('mouseleave');
-    this.navigationState = 'mouseleave';
-    this.renderer.removeClass(this.appNavigation.nativeElement, 'active');
+    this.navigationState = (this.navigationState === 'active') ? '' : 'active';
   }
 }

@@ -1,35 +1,7 @@
-<div #scrollEl class="home" [style.height.px]="home.height" *ngIf="home.loaded">
+<div class="home full-screen layout-row" *ngIf="home.loaded">
 
-  <div class="news">
-    <h1>NEWS</h1>
-    <h1>...</h1>
-    <h1>...</h1>
-    <h1>...</h1>
+  <div class="layout-center">
+    <h1>{{ i18n(home.feature, 'title') }}</h1>
   </div>
 
-  <div class="news">
-    <h1>VIDEO ALBUM</h1>
-    <h1>...</h1>
-    <h1>...</h1>
-    <h1>...</h1>
-  </div>
-
-  <div class="news">
-    <h1>PHOTO ALBUM</h1>
-    <h1>...</h1>
-    <h1>...</h1>
-    <h1>...</h1>
-  </div>
-
-  <div class="news">
-    <h1>CONTACT</h1>
-    <h1>...</h1>
-    <h1>...</h1>
-    <h1>...</h1>
-  </div>
-
-</div>
-
-<div class="loading" *ngIf="home.loaded">
-  <div class="loader"></div>
 </div>

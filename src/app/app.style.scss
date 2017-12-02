@@ -60,60 +60,60 @@
   display: flex;
   position: fixed;
   left: 0;
-  bottom: 0;
+  top: 0;
   max-width: 400px;
   width: 100%;
-  height: 50px;
+  height: 70px;
   background: #013;
-  overflow-y: hidden;
-  overflow-x: auto;
+  overflow: hidden;
   will-change: transform;
-  transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, -100%, 0);
   transition: all 150ms ease-out;
-  transition-delay: 150ms;
+  transition-delay: 50ms;
   z-index: 3;
 
   .language {
     position: relative;
     display: flex;
-    margin: 5px 15px;
     height: 40px;
     width: 40px;
-    cursor: pointer;
+    margin: 15px;
 
     > img {
       max-width: 40px;
       max-height: 40px;
       height: auto;
       width: auto;
-      margin: auto;
+      cursor: pointer;
     }
-    &::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 1px;
-      width: 40px;
-      height: 2px;
-      background: #dee;
-      will-change: transform;
-      transform: scaleX(0);
-      transition: all 100ms ease-out;
+    > div {
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 1px;
+        width: 40px;
+        height: 2px;
+        background: #dee;
+        will-change: transform;
+        transform: scaleX(0);
+        transition: all 150ms ease-out;
+      }
     }
-  }
-  .language_active::after {
-    transform: scaleX(1);
+    > div.language_active::before {
+      transform: scaleX(1);
+    }
   }
 }
 
 .features {
   position: fixed;
   left: 0;
-  top: 0;
+  top: 70px;
   max-width: 400px;
   width: 100%;
-  height: calc(100% - 200px);
-  padding-top: 150px;
+  height: calc(100% - 170px);
+  padding: 50px 0;
   background-color: #dee;
   -webkit-overflow-scrolling: touch;
   overflow-y: auto;
@@ -127,8 +127,8 @@
   .feature {
     position: relative;
     display: flex;
-    width: calc(100% - 10px);
-    margin: 5px;
+    width: calc(100% - 20px);
+    margin: 10px;
     cursor: pointer;
 
     &:hover {
@@ -145,15 +145,15 @@
       > span {
         padding: 20px;
         position: relative;
-        border-bottom: 1px solid rgba(50,100,150, 0.2);
-        font-size: 32px;
+        border-bottom: 1px solid #113;
+        font-size: 28px;
         padding: 20px;
         font-family: sans-serif;
         color: #013;
         text-align: center;
         margin: 0 auto;
         text-align: center;
-        font-weight: 700;
+        font-weight: 600;
         text-transform: uppercase;
 
         &::after {
@@ -171,11 +171,21 @@
       }
     }
     &_active {
-      a > span {
-        border-bottom: 1px solid #369;
+      a > span::after {
+        background: #113;
+        transform: scaleX(1);
       }
     }
   }
+}
+
+.click-catcher {
+  background-color: rgba(0,0,0, 0.1);
+  will-change: transform;
+  transition: all 200ms ease-out;
+  transform: translateX(100%);
+  opacity: 0;
+  cursor: pointer;
 }
 
 .active {
@@ -201,6 +211,10 @@
   }
   .features {
     transform: translate3d(0, 0, 0);
-    transition-delay: 150ms;
+    transition-delay: 50ms;
+  }
+  .click-catcher {
+    transform: translateZ(0);
+    opacity: 1;
   }
 }

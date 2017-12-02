@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 
-import { LocalStorageService } from '@app/core/services/local-storage.service';
+import { LocalStorageService } from '@app/core/local-storage.service';
 
 import { Languages, Language } from '@app/languages.model';
 
 const config =
 {
   'local-storage-id': 'app-language',
-  'routes': {}
+  'routes':
+  {
+    'home': '/',
+    'about': '01/'
+  }
 };
 
 @Injectable()
@@ -27,7 +31,7 @@ export class AppService
 
       if (language !== undefined)
       {
-        // console.log('lang (source: local-storage):', language.id);
+        console.log('lang (source: local-storage):', language.id);
         this.updateLanguage(language.id);
         return (language);
       }
@@ -48,14 +52,14 @@ export class AppService
 
       if (language !== undefined)
       {
-        // console.log('(source: browser) language:', language.id);
+        console.log('(source: browser) language:', language.id);
         this.updateLanguage(language.id);
         return (language);
       }
     }
 
     // Just set the first available language as default
-    // console.log('(source: json) language:', languages[0].id);
+    console.log('(source: json) language:', languages[0].id);
     this.updateLanguage(languages[0].id);
     return (languages[0]);
   }
@@ -82,6 +86,8 @@ export class AppService
   {
     switch (module)
     {
+      case 'home': return (config.routes.home);
+      case 'about': return (config.routes.about);
       default: return ('/');
     }
   }
